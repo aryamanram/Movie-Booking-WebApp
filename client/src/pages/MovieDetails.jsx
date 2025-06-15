@@ -30,7 +30,9 @@ const MovieDetails = () => {
                     <h1 className = "text-4xl font-semibold max-w-96 text-balance">{show.movie.title}</h1>
                     <div className = "flex items-center gap-2 text-gray-300">
                         <StarIcon className = "w-5 h-5 text-primary fill-primary"/>
+                        {show.movie.vote_average.toFixed(1)} User Rating
                     </div>
+                    <p></p>
                 </div>
             </div>
         </div>
