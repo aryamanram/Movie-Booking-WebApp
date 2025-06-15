@@ -4,6 +4,7 @@ import {dummyDateTimeData, dummyShowsData} from "../assets/assets.js";
 import BlurCircle from "../components/BlurCircle.jsx";
 import {Heart, PlayCircleIcon, StarIcon} from "lucide-react";
 import timeFormat from "../lib/timeFormat.js";
+import DateSelect from "../components/DateSelect.jsx";
 
 const MovieDetails = () => {
     const {id} = useParams();
@@ -63,6 +64,8 @@ const MovieDetails = () => {
                     ))}
                 </div>
             </div>
+
+            <DateSelect dateTime = {show.dateTime} id = {id}/>
         </div>
     ) : (
         <div>
