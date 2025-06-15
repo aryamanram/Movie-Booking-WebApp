@@ -32,7 +32,7 @@ const MovieDetails = () => {
                         <StarIcon className = "w-5 h-5 text-primary fill-primary"/>
                         {show.movie.vote_average.toFixed(1)} User Rating
                     </div>
-                    <p></p>
+                    <p className = "text-gray-400 mt-2 text-sm leading-tight max-w-xl">{show.movie.overview}</p>
                 </div>
             </div>
         </div>
