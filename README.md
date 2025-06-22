@@ -3,11 +3,11 @@ This is a mock movie booking web app with a full stack implementation using the 
 
 ## Frontend: <br>
 React + Vite <br>
-TailwindCSS
-Router Dom
+TailwindCSS <br>
+Router Dom <br>
 GSAP
 
 ## Backend:
-Express
-MongoDB
-Vercel
+Express <br>
+MongoDB <br>
+Vercel <br>
