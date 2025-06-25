@@ -1,19 +1,20 @@
 import axios from "axios";
 import Movie from "../models/Movie.js";
 import Show from "../models/Show.js";
+import { inngest } from "../inngest/index.js";
 
 // API to fetch now playing movies from TMDB
-export const getNowPlayingMovies = async (req, res) => {
+export const getNowPlayingMovies = async (req, res)=>{
     try {
-        const {data } = await axios.get('https://api.themoviedb.org/3/movie/now_playing', {
-            headers: {Authorization: `Bearer ${process.env.TMDB_API_KEY}`},
+        const { data } = await axios.get('https://api.themoviedb.org/3/movie/now_playing', {
+            headers: {Authorization : `Bearer ${process.env.TMDB_API_KEY}`}
         })
 
         const movies = data.results;
         res.json({success: true, movies: movies})
     } catch (error) {
         console.error(error);
-        res.json({success: false, message: error.message});
+        res.json({success: false, message: error.message})
     }
 }
 
@@ -84,7 +85,8 @@ export const getShows = async (req, res) => {
         const shows = await Show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({showDateTime: 1});
 
         // filter unique shows
-        const uniqueShows = new Set(shows.map(show => show.movie))
+        const uniqueShows = new Set(shows.map(show => show.movie));
+
         res.json({success: true, shows: Array.from(uniqueShows)})
     } catch (error) {
         console.error(error);
