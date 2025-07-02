@@ -17,6 +17,7 @@ const AddShows = () => {
     const [dateTimeSelection, setDateTimeSelection] = useState({});
     const [dateTimeInput, setDateTimeInput] = useState("");
     const [showPrice, setShowPrice] = useState("");
+    const [addingShow, setAddingShow] = useState(false);
 
     const fetchNowPlayingMovies = async () => {
         try {
@@ -155,7 +156,7 @@ const AddShows = () => {
                     </ul>
                 </div>
             )}
-            <button className = "bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer">
+            <button onClick = {handleSubmit} disabled = {addingShow} className = "bg-primary text-white px-8 py-2 mt-6 rounded hover:bg-primary/90 transition-all cursor-pointer">
                 Add Show
             </button>
         </>
