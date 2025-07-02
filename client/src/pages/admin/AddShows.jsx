@@ -5,6 +5,7 @@ import Title from "../../components/admin/Title.jsx";
 import {CheckIcon, DeleteIcon, StarIcon} from "lucide-react";
 import {kConverter} from "../../lib/kConverter.js";
 import {useAppContext} from "../../context/AppContext.jsx";
+import toast from "react-hot-toast";
 
 const AddShows = () => {
 
@@ -57,6 +58,39 @@ const AddShows = () => {
             };
         });
     };
+
+    const handleSubmit = async () => {
+        try {
+            setAddingShow(true)
+
+            if (!selectedMovie || Object.keys(dateTimeSelection).length === 0 || !showPrice) {
+                return toast('Missing required fields')
+            }
+
+            const showsInput = Object.entries(dateTimeSelection).map(([date, time]) => ({date, time}))
+
+            const payload = {
+                movieId: selectedMovie,
+                showsInput,
+                showPrice: Number(showPrice)
+            }
+
+            const { data } = await axios.post('/api/show/add', payload, {headers: {Authorization: `Bearer ${await getToken()}`}})
+
+            if (data.success) {
+                toast.success(data.message)
+                setSelectedMovie(null)
+                setDateTimeSelection({})
+                setShowPrice("")
+            } else {
+                toast.error(data.message)
+            }
+        } catch (error) {
+            console.error('Submission error',error)
+            toast.error('An error occurred. Please try again.')
+        }
+        setAddingShow(false)
+    }
 
     useEffect(() => {
         if ( user ) {
