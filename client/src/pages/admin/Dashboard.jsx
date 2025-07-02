@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {ChartLineIcon, CircleDollarSignIcon, PlayCircleIcon, StarIcon, UsersIcon} from "lucide-react";
-import {dummyDashboardData} from "../../assets/assets.js";
 import Loading from "../../components/Loading.jsx";
 import Title from "../../components/admin/Title.jsx";
 import BlurCircle from "../../components/BlurCircle.jsx";

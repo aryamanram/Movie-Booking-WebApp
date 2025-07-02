@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import {dummyShowsData} from "../../assets/assets.js";
 import Loading from "../../components/Loading.jsx";
 import Title from "../../components/admin/Title.jsx";
 import {dateFormat} from "../../lib/dateFormat.js";
