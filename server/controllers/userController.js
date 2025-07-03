@@ -31,10 +31,10 @@ export const updateFavorite = async (req, res) => {
             user.privateMetadata.favorites = []
         }
 
-        if (!user.privateMetadata.favorite.includes(movieId)) {
-            user.privateMetadata.favorite.push(movieId)
+        if (!user.privateMetadata.favorites.includes(movieId)) {
+            user.privateMetadata.favorites.push(movieId)
         } else {
-            user.privateMetadata.favorite = user.privateMetadata.favorite.filter(item => item !== movieId)
+            user.privateMetadata.favorites = user.privateMetadata.favorites.filter(item => item !== movieId)
         }
 
         await clerkClient.users.updateUser(userId, {privateMetadata: user.privateMetadata})
