@@ -17,20 +17,20 @@ const SeatLayout = () => {
 
     const groupRows = [["A", "B"], ["C", "D"], ["E", "F"], ["G", "H"], ["I", "J"]];
 
-    const {id, date} = useParams();
-    const [selectedSeats, setSelectedSeats]  = useState([]);
-    const [selectedTime, setSelectedTime]  = useState(null);
-    const [show, setShow]  = useState(null);
-    const [occupiedSeats, setOccupiedSeats] = useState([]);
+    const {id, date} = useParams()
+    const [selectedSeats, setSelectedSeats] = useState([])
+    const [selectedTime, setSelectedTime] = useState(null)
+    const [show, setShow] = useState(null)
+    const [occupiedSeats, setOccupiedSeats] = useState([])
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const {axios, getToken, user} = useAppContext()
 
-    const getShow = async () => {
+    const getShow = async () =>{
         try {
             const { data } = await axios.get(`/api/show/${id}`)
-            if (data.success) {
+            if (data.success){
                 setShow(data)
             }
         } catch (error) {
@@ -38,29 +38,28 @@ const SeatLayout = () => {
         }
     }
 
-    const handleSeatClick = (seatId) => {
+    const handleSeatClick = (seatId) =>{
         if (!selectedTime) {
             return toast("Please select time first")
         }
-        if (!selectedSeats.includes(seatId) && selectedSeats.length > 4 ) {
+        if(!selectedSeats.includes(seatId) && selectedSeats.length > 4){
             return toast("You can only select 5 seats")
         }
-        if (occupiedSeats.includes(seatId)) {
-            return toast("This seat is already booked")
+        if(occupiedSeats.includes(seatId)){
+            return toast('This seat is already booked')
         }
         setSelectedSeats(prev => prev.includes(seatId) ? prev.filter(seat => seat !== seatId) : [...prev, seatId])
     }
 
-    const renderSeats = (row, count = 9) =>  (
-        <div key = {row} className = "flex gap-2 mt-2">
-            <div className = "flex flex-wrap items-center justify-center gap-2">
-                {Array.from({length: count }, (_, i) => {
-                    const seatId = `${row}${i + 1}`
+    const renderSeats = (row, count = 9)=>(
+        <div key={row} className="flex gap-2 mt-2">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+                {Array.from({ length: count }, (_, i) => {
+                    const seatId = `${row}${i + 1}`;
                     return (
-                        <button
-                            key = {seatId}
-                            onClick = {() => handleSeatClick(seatId)}
-                            className = {`h-8 w-8 rounded border border-primary/60 cursor-pointer ${selectedSeats.includes(seatId) && "bg-primary text-white"} ${occupiedSeats.includes(seatId) && "opacity-50"} `}>
+                        <button key={seatId} onClick={() => handleSeatClick(seatId)} className={`h-8 w-8 rounded border border-primary/60 cursor-pointer
+                         ${selectedSeats.includes(seatId) && "bg-primary text-white"} 
+                         ${occupiedSeats.includes(seatId) && "opacity-50"}`}>
                             {seatId}
                         </button>
                     );
@@ -69,12 +68,12 @@ const SeatLayout = () => {
         </div>
     )
 
-    const getOccupiedSeats = async () => {
+    const getOccupiedSeats = async ()=>{
         try {
             const { data } = await axios.get(`/api/booking/seats/${selectedTime.showId}`)
             if (data.success) {
                 setOccupiedSeats(data.occupiedSeats)
-            } else {
+            }else{
                 toast.error(data.message)
             }
         } catch (error) {
@@ -82,22 +81,17 @@ const SeatLayout = () => {
         }
     }
 
-    const bookTickets = async () => {
+    const bookTickets = async ()=>{
         try {
-            if (!user) return toast.error("Please login to proceed")
+            if(!user) return toast.error('Please login to proceed')
 
-            if (!selectedTime || !selectedSeats.length) return toast.error("Please select time and seats")
+            if(!selectedTime || !selectedSeats.length) return toast.error('Please select a time and seats');
 
-            const { data } = await axios.post(
-                '/api/booking/create',
-                {showId: selectedTime.showId, selectedSeats},
-                {headers: {Authorization: `Bearer ${await getToken()}`}}
-            )
+            const {data} = await axios.post('/api/booking/create', {showId: selectedTime.showId, selectedSeats}, {headers: { Authorization: `Bearer ${await getToken()}` }});
 
-            if (data.success) {
-                toast.success(data.message)
-                navigate('/my-bookings')
-            } else {
+            if (data.success){
+                window.location.href = data.url;
+            }else{
                 toast.error(data.message)
             }
         } catch (error) {
