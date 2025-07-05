@@ -1,12 +1,17 @@
+// Packages
 import React, {useEffect, useState} from 'react'
 import {useNavigate, useParams} from "react-router-dom";
-import {assets} from "../assets/assets.js";
-import Loading from "../components/Loading.jsx";
 import {ArrowRightIcon, ClockIcon} from "lucide-react";
 import isoTimeFormat from "../lib/isoTimeFormat.js";
-import BlurCircle from "../components/BlurCircle.jsx";
 import toast from "react-hot-toast";
+
+// Components
 import {useAppContext} from "../context/AppContext.jsx";
+import Loading from "../components/Loading.jsx";
+import BlurCircle from "../components/BlurCircle.jsx";
+
+// Assets
+import {assets} from "../assets/assets.js";
 
 const SeatLayout = () => {
 
